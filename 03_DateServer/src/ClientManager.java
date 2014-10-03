@@ -42,10 +42,7 @@ public class ClientManager extends Thread {
 	private String calculateDateDifference(String userDate) throws ParseException {
 		Date futureDate = isoDate.parse(userDate);
 		Date today = new Date();
-		
 		long days = unixToDays(futureDate.getTime() - today.getTime());
-		System.out.println(futureDate.getTime());
-		System.out.println(days);
 		return Long.toString(days);
 	}
 	
