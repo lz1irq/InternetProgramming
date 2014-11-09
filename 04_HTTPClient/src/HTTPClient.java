@@ -36,7 +36,6 @@ public class HTTPClient {
 	}
 	
 	public HTTPResponse request(String method, String path) throws IOException {
-		
 		serverSocket = new Socket(server,HTTP_PORT);
 		in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
 		out = new PrintWriter(serverSocket.getOutputStream());
