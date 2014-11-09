@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 public class HTTPClient {
@@ -24,39 +25,38 @@ public class HTTPClient {
 	private  String host;
 	
 	public HTTPClient(String serverAddress) throws UnknownHostException, IOException {
-		serverSocket = new Socket(serverAddress,HTTP_PORT);
-		in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-		out = new PrintWriter(serverSocket.getOutputStream());
 		server = serverAddress;
 		host = server;
 	}
 	
 	//when we want to access a specific virtual host
 	public HTTPClient(String serverAddress, String virtualHost) throws UnknownHostException, IOException {
-		serverSocket = new Socket(serverAddress,HTTP_PORT);
-		in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-		out = new PrintWriter(serverSocket.getOutputStream());
 		server = serverAddress;
 		host = virtualHost;
 	}
 	
 	public HTTPResponse request(String method, String path) throws IOException {
+		
+		serverSocket = new Socket(server,HTTP_PORT);
+		in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+		out = new PrintWriter(serverSocket.getOutputStream());
+		
 		sendRequest(method, path);
 		HTTPResponse response = getReply();
+		serverSocket.close();
 		
-		if(response.getStatus() == STATUS_MOVED_PERM || response.getStatus() == STATUS_MOVED_TEMP) {
-			String newPath = response.getHeaderValue(HEADER_LOCATION);
-			response = request(method, newPath);
-			System.out.println("Path '" + path + "' has been moved to '" + newPath +"'\n");
+		if(response.getStatusCode() == STATUS_MOVED_PERM || response.getStatusCode() == STATUS_MOVED_TEMP) {
+			URL newLocation = new URL(response.getHeaderValue(HEADER_LOCATION));
+			this.host = newLocation.getHost();
+			response = request(method, newLocation.getPath());
+			System.out.println("'" + host + path + "' has been moved to '" + newLocation.toString() +"'\n");
 		}
-		
 		return response;
 	}
-	
+		
 	private HTTPResponse getReply() throws IOException {
 		final HTTPResponse response = new HTTPResponse();
-		String statusCode = in.readLine().split(" ", 3)[1];
-		response.setStatus(Integer.parseInt(statusCode));
+		response.setStatusLine(in.readLine());
 		
 		String next;
 		while(!(next = in.readLine()).equals("")) {
@@ -64,7 +64,7 @@ public class HTTPClient {
 			response.getHeaders().add(new HTTPHeader(header[0], header[1]));
 		}
 		
-		if(response.getStatus() != STATUS_MOVED_PERM || response.getStatus() != STATUS_MOVED_TEMP) {
+		if(response.getStatusCode() != STATUS_MOVED_PERM || response.getStatusCode() != STATUS_MOVED_TEMP) {
 			//getting the body only works for fixed content-length websites - chunk transfer is not supported yet!
 			if(response.getBody() != null) { 
 				in.read(response.getBody());
@@ -73,10 +73,6 @@ public class HTTPClient {
 		
 		return response;
 	}	
-	
-	public void disconnect() throws IOException {
-		serverSocket.close();
-	}
 	
 	private void sendRequest(String method, String path) {
 		out.printf("%s %s %s\n", method, path, PROTOCOL_VERSION);

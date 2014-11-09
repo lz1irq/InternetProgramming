@@ -8,15 +8,21 @@ public class HTTPResponse {
 	private static final String HEADER_CONTENT_LENGTH = "content-length";
 	
 	private List<HTTPHeader> headers = new ArrayList<HTTPHeader>();;
-	private int status;
+	private int statusCode;
+	private String statusLine;
 	private char[] body;
 	
-	public int getStatus() {
-		return status;
+	public int getStatusCode() {
+		return statusCode;
 	}
-
-	public void setStatus(int newStatus) {
-		this.status = newStatus;
+	
+	public void setStatusLine(String newStatus) {
+		statusLine = newStatus;
+		this.statusCode = Integer.parseInt(statusLine.split(" ", 3)[1]);
+	}
+	
+	public String getStatusLine() {
+		return statusLine;
 	}
 	
 	public char[] getBody() {
