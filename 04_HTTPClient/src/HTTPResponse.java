@@ -36,7 +36,7 @@ public class HTTPResponse {
 		
 		return body;
 	}
-	private int getContentSize() {
+	public int getContentSize() {
 		return Integer.parseInt(getHeaderValue(HEADER_CONTENT_LENGTH));
 	}
 
