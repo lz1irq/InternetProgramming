@@ -1,5 +1,11 @@
 $(function() {
-	"use strict"
+		 "use strict"
+		 
+	$('#col1').mouseenter(function() {
+		$('#col1').before(($('#col2')));
+	 });
+		
+	
 	console.log($('#logo')); //id
 	console.log($('.sbutton')) //class
 	console.log($('#col1 a')); //all links which are children of div with id col1
@@ -10,9 +16,10 @@ $(function() {
 	console.log($('p:first-letter')); //the first letter of every paragraph
 	console.log($('ul li[rel="bookmark"]')); //all list items in an unordered list that have a specific property
 	console.log($('div > #latest')); //direct children of divs that have the 'latest' class
-	console.log($('input:not(input[type="email])')); // input elements that are not for email
+	console.log($('input:not(input[type="email"])')); // input elements that are not for email
 	console.log($('p a:only-child')); //links that are the only child of a paragraph
 	console.log($('h2+p')); //select the paragraphs preceded by a h2
 	console.log($('*')); //select all elements
 	console.log($('ul > li::before')); //just before every list item which is a direct child of an unordered list
+	
 });
