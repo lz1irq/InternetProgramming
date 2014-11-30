@@ -35,19 +35,19 @@ public class HTTPClient {
 		host = virtualHost;
 	}
 	
-	public HTTPResponse request(String method, String path) throws IOException {
+	public HTTPResponse request(String method, String path, String body) throws IOException {
 		serverSocket = new Socket(server,HTTP_PORT);
 		in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
 		out = new PrintWriter(serverSocket.getOutputStream());
 		
-		sendRequest(method, path);
+		sendRequest(method, path, body);
 		HTTPResponse response = getReply();
 		serverSocket.close();
 		
 		if(response.getStatusCode() == STATUS_MOVED_PERM || response.getStatusCode() == STATUS_MOVED_TEMP) {
 			URL newLocation = new URL(response.getHeaderValue(HEADER_LOCATION));
 			this.host = newLocation.getHost();
-			response = request(method, newLocation.getPath());
+			response = request(method, newLocation.getPath(), body);
 			System.out.println("'" + host + path + "' has been moved to '" + newLocation.toString() +"'\n");
 		}
 		return response;
@@ -66,17 +66,27 @@ public class HTTPClient {
 		if(response.getStatusCode() != STATUS_MOVED_PERM || response.getStatusCode() != STATUS_MOVED_TEMP) {
 			//getting the body only works for fixed content-length websites - chunk transfer is not supported yet!
 			if(response.getBody() != null) { 
-				in.read(response.getBody());
+				char[] body = new char[response.getContentSize()];
+				in.read(body);
+				System.out.println(body);
 			}
 		}
 		
 		return response;
 	}	
 	
-	private void sendRequest(String method, String path) {
+	private void sendRequest(String method, String path, String body) {
 		out.printf("%s %s %s\n", method, path, PROTOCOL_VERSION);
 		out.printf("Host: %s\n", host);
-		out.printf("\n");
+		if(body != null) {
+			out.printf("Content-Length: %d\n", body.length());
+			out.printf("Content-Type: %s\n", "application/x-www-form-urlencoded");
+			out.printf("\n");
+			out.println(body);
+		}
+		else {
+			out.printf("\n");
+		}
 		out.flush();
 	}
 }
