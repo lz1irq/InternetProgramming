@@ -47,17 +47,17 @@ $(function() {
 	});
 
 	//task 10
-	var swapped = false;
+	var t10swapped = false; 
 	t4lia.click(function() {
 		var firstcol = $('#col1');
 		var secondcol = $('#col2');
-		if(!swapped) {
+		if(!t10swapped) {
 			secondcol.after(firstcol);
-			swapped = true;
+			t10swapped = true;
 		}
 		else {
 			firstcol.after(secondcol);
-			swapped = false;
+			t10swapped = false;
 		}
 	});
 
