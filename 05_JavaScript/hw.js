@@ -83,4 +83,12 @@ $(function() {
 	$.ajax("http://jsonplaceholder.typicode.com/posts/", {
 			method: "GET"
 	}).then(processPosts);
+
+	//task 12
+	t7btn.click(function() {
+		if(t6inp.val() == "") {
+			alert("you must enter text");
+		}
+	});
+
 });
