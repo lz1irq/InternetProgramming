@@ -45,4 +45,20 @@ $(function() {
 	t4lia.click(function() {
 		alert('Hello, world!');
 	});
+
+	//task 10
+	var swapped = false;
+	t4lia.click(function() {
+		var firstcol = $('#col1');
+		var secondcol = $('#col2');
+		if(!swapped) {
+			secondcol.after(firstcol);
+			swapped = true;
+		}
+		else {
+			firstcol.after(secondcol);
+			swapped = false;
+		}
+	});
+
 });
