@@ -26,4 +26,9 @@ $(function() {
 	var t5div = $('<div/>').attr('id', 'dynamiccontent');
 	footer.prepend(t5div);
 
+	//task 6
+	var t6in = $('<input/>');
+	t6in.attr('id', 'textinput');
+	t5div.append(t6in);
+
 });
