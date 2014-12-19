@@ -1,6 +1,9 @@
 $(function() {
 	'use strict'
 	
+	//globally useful elements
+	var footer = $('#footer');
+
 	//task 2
 	console.log($('.tu'));
 	//alternatively - '#footer > a', etc...
@@ -18,4 +21,9 @@ $(function() {
 	
 	t4li.append(t4lia);
 	t4list.append(t4li);
+
+	//task 5
+	var t5div = $('<div/>').attr('id', 'dynamiccontent');
+	footer.prepend(t5div);
+
 });
