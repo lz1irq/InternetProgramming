@@ -40,4 +40,9 @@ $(function() {
 	var t8list = $('<ul/>');
 	t8list.attr('id', 'posts');
 	t5div.append(t8list);
+
+	//task 9
+	t4lia.click(function() {
+		alert('Hello, world!');
+	});
 });
