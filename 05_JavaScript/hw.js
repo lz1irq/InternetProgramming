@@ -27,8 +27,13 @@ $(function() {
 	footer.prepend(t5div);
 
 	//task 6
-	var t6in = $('<input/>');
-	t6in.attr('id', 'textinput');
-	t5div.append(t6in);
+	var t6inp = $('<input/>');
+	t6inp.attr('id', 'textinput');
+	t5div.append(t6inp);
+
+	//task 7
+	var t7btn = $('<button/>');
+	t7btn.attr('id', 'addbutton').text('Add');
+	t5div.append(t7btn);
 
 });
