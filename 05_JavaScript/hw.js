@@ -61,4 +61,26 @@ $(function() {
 		}
 	});
 
+	//task 11
+	
+	function appendToList(list, post) {
+		var item = $('<li/>');
+		console.log(post.title);
+		item.text(post.title);
+		list.append(item);
+	}
+
+	function processPosts(posts) {
+		var i = 0;
+		$.each(posts, function() {
+			appendToList(t8list, this);
+			if(++i >= 5) {
+				return false;
+			}
+		});
+	}
+
+	$.ajax("http://jsonplaceholder.typicode.com/posts/", {
+			method: "GET"
+	}).then(processPosts);
 });
