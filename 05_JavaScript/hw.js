@@ -164,7 +164,7 @@ $(function() {
 		}).then(function(responses) {
 			t8list.empty();
 			$.each(responses, function() {
-				appendToList(t8list, this.title);
+				addPost(this);
 			});
 		});
 	});
