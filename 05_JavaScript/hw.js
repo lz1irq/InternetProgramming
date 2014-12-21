@@ -1,6 +1,13 @@
 $(function() {
 	'use strict'
 	
+	//README
+	//This variable is used in tasks 13+. Set it according
+	//to the jsonplaceholder you are using for running this.
+	//I am running one on my box (as instructed).
+	var jsonHost = "http://localhost:3000/posts/";
+
+
 	//globally useful elements
 	var footer = $('#footer');
 
@@ -80,15 +87,33 @@ $(function() {
 		});
 	}
 
-	$.ajax("http://jsonplaceholder.typicode.com/posts/", {
+	$.ajax(jsonHost, {
 			method: "GET"
 	}).then(processPosts);
 
-	//task 12
+	// task 12
+	//t7btn.click(function() {
+	//	if(t6inp.val() == "") {
+	//		alert("you must enter text");
+	//	}
+	//});
+
+	//task 13
 	t7btn.click(function() {
 		if(t6inp.val() == "") {
 			alert("you must enter text");
 		}
+		else {
+			$.ajax(jsonHost, {
+  				method: 'POST',
+  				data: {
+    				title: t6inp.val(),
+    				body: 'bar',
+   					userId: 1
+  				}
+			}).then(function(data) {
+  				console.log(data);
+			});
+		}
 	});
-
 });
