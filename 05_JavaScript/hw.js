@@ -133,10 +133,11 @@ $(function() {
 			alert("you must enter text");
 		}
 		else {
+			var postTitle = t6inp.val();
 			$.ajax(jsonHost + 'posts/', {
   				method: 'POST',
   				data: {
-    				title: t6inp.val(),
+    				title: postTitle,
     				body: 'bar',
    					userId: 1
   				}
@@ -152,14 +153,16 @@ $(function() {
 
 	//task 17
 	var t17inp = $('<input/>');
-	t8list.prepend(t17inp);
+	t8list.before(t17inp);
 
-	//task 18
+	//task 18, 19
 	t17inp.change(function() {
 		var userID = t17inp.val();
+		t17inp.val('');
 		$.ajax(jsonHost + 'posts?userId=' + userID, {
 			method: 'GET'
 		}).then(function(responses) {
+			t8list.empty();
 			$.each(responses, function() {
 				appendToList(t8list, this.title);
 			});
