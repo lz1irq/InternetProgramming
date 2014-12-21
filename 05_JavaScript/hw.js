@@ -149,5 +149,10 @@ $(function() {
 			});
 		};
 	});
+
+	//task 17
+	var t17inp = $('<input/>');
+	t8list.prepend(t17inp);
+
 });
 
