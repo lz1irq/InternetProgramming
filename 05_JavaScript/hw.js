@@ -98,7 +98,7 @@ $(function() {
 	//	}
 	//});
 
-	//task 13
+	//task 13, 14
 	t7btn.click(function() {
 		if(t6inp.val() == "") {
 			alert("you must enter text");
@@ -112,8 +112,16 @@ $(function() {
    					userId: 1
   				}
 			}).then(function(data) {
-  				console.log(data);
+				$.ajax(jsonHost + data.id, {
+					method: 'GET'
+				}).then(function(post) {
+					appendToList(t8list, post);
+				});
 			});
 		}
 	});
+
+
+	
+
 });
