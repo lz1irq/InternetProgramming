@@ -70,17 +70,16 @@ $(function() {
 
 	//task 11
 	
-	function appendToList(list, post) {
+	function appendToList(list, text) {
 		var item = $('<li/>');
-		console.log(post.title);
-		item.text(post.title);
+		item.text(text);
 		list.append(item);
 	}
 
 	function processPosts(posts) {
 		var i = 0;
 		$.each(posts, function() {
-			appendToList(t8list, this);
+			appendToList(t8list, this.title);
 			if(++i >= 5) {
 				return false;
 			}
@@ -98,7 +97,21 @@ $(function() {
 	//	}
 	//});
 
-	//task 13, 14
+	//task 13, 14, 15
+
+	function addPost(post) {
+		var btnDelete = $('<button/>');
+		btnDelete.text('X');
+		btnDelete.click(function() {
+			alert('deleting');
+		});
+		
+		var listItem = $('<li/>');
+		listItem.text(post.title + '   ');
+		listItem.append(btnDelete);
+		t8list.append(listItem);	
+	}
+
 	t7btn.click(function() {
 		if(t6inp.val() == "") {
 			alert("you must enter text");
@@ -115,13 +128,10 @@ $(function() {
 				$.ajax(jsonHost + data.id, {
 					method: 'GET'
 				}).then(function(post) {
-					appendToList(t8list, post);
+					addPost(post);	
 				});
 			});
-		}
+		};
 	});
-
-
-	
-
 });
+
