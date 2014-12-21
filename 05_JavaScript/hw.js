@@ -5,7 +5,7 @@ $(function() {
 	//This variable is used in tasks 13+. Set it accordin
 	//to the jsonplaceholder you are usin for running this.
 	//I am runnin one on my box (as instructed).
-	var jsonHost = "http://localhost:3000/posts/";
+	var jsonHost = "http://localhost:3000/";
 
 
 	//lobally useful elements
@@ -86,7 +86,7 @@ $(function() {
 		});
 	}
 
-	$.ajax(jsonHost, {
+	$.ajax(jsonHost + 'posts/', {
 			method: "GET"
 	}).then(processPosts);
 
@@ -105,10 +105,10 @@ $(function() {
 		btnDelete.click(function() {
 			var shouldDelete = confirm('Do you want to delete ' + post.title + ' ?');
 			if(shouldDelete) {
-				$.ajax(jsonHost + post.id, {
+				$.ajax(jsonHost + 'posts/' + post.id, {
 					method: 'DELETE'
 				}).then(function() {
-					$.ajax(jsonHost + post.id, {
+					$.ajax(jsonHost + 'posts/' +  post.id, {
 						method: 'GET'
 				}).then(function() {}, function() {
 					// Why do I do something when the GET request has failed, not when it succeeds?
@@ -133,7 +133,7 @@ $(function() {
 			alert("you must enter text");
 		}
 		else {
-			$.ajax(jsonHost, {
+			$.ajax(jsonHost + 'posts/', {
   				method: 'POST',
   				data: {
     				title: t6inp.val(),
@@ -141,7 +141,7 @@ $(function() {
    					userId: 1
   				}
 			}).then(function(data) {
-				$.ajax(jsonHost + data.id, {
+				$.ajax(jsonHost + 'posts/' + data.id, {
 					method: 'GET'
 				}).then(function(post) {
 					addPost(post);	
@@ -153,6 +153,18 @@ $(function() {
 	//task 17
 	var t17inp = $('<input/>');
 	t8list.prepend(t17inp);
+
+	//task 18
+	t17inp.change(function() {
+		var userID = t17inp.val();
+		$.ajax(jsonHost + 'posts?userId=' + userID, {
+			method: 'GET'
+		}).then(function(responses) {
+			$.each(responses, function() {
+				appendToList(t8list, this.title);
+			});
+		});
+	});
 
 });
 
