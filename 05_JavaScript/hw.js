@@ -2,13 +2,13 @@ $(function() {
 	'use strict'
 	
 	//README
-	//This variable is used in tasks 13+. Set it according
-	//to the jsonplaceholder you are using for running this.
-	//I am running one on my box (as instructed).
+	//This variable is used in tasks 13+. Set it accordin
+	//to the jsonplaceholder you are usin for running this.
+	//I am runnin one on my box (as instructed).
 	var jsonHost = "http://localhost:3000/posts/";
 
 
-	//globally useful elements
+	//lobally useful elements
 	var footer = $('#footer');
 
 	//task 2
@@ -97,20 +97,36 @@ $(function() {
 	//	}
 	//});
 
-	//task 13, 14, 15
+	//task 13, 14, 15, 16
 
 	function addPost(post) {
 		var btnDelete = $('<button/>');
 		btnDelete.text('X');
 		btnDelete.click(function() {
-			alert('deleting');
-		});
+			var shouldDelete = confirm('Do you want to delete ' + post.title + ' ?');
+			if(shouldDelete) {
+				$.ajax(jsonHost + post.id, {
+					method: 'DELETE'
+				}).then(function() {
+					$.ajax(jsonHost + post.id, {
+						method: 'GET'
+				}).then(function() {}, function() {
+					// Why do I do something when the GET request has failed, not when it succeeds?
+					// Since the DELETE request above does not return a reponse, I have to manually check if
+					// the resource is there. If it isn't (which is the desired result), the GET request
+					// is treated by jQuery as FAILED, even though the node.js server log shows a HTTP 200 OK
+					// status code.
+					btnDelete.parent().remove();
+				});
+			});
+			}
+		});		
 		
 		var listItem = $('<li/>');
 		listItem.text(post.title + '   ');
 		listItem.append(btnDelete);
 		t8list.append(listItem);	
-	}
+	}	
 
 	t7btn.click(function() {
 		if(t6inp.val() == "") {
