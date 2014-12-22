@@ -12,7 +12,7 @@ $(function() {
 	var footer = $('#footer');
 
 	//task 2
-	console.log($('.tu'));
+	console.log($('.tu').attr("title"));
 	//alternatively - '#footer > a', etc...
 	
 	//task 3
