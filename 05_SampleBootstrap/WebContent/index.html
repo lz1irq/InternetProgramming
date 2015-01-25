@@ -4,14 +4,39 @@
 <title>Hello</title>
 <link rel="stylesheet" href="css/bootstrap.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
 	
 	<div class="container">
-		Hello, World!
+
 		
-		<div class="container">
+		<div class="row">
+			<!-- one ugly form -->
+			<form>
+				<div>
+					<label for="exampleInputEmail1">Email address</label>
+					<input type="email" id="exampleInputEmail1" placeholder="Enter email">
+				</div>
+				<div>
+					<label for="exampleInputPassword1">Password</label>
+					<input type="password" id="exampleInputPassword1" placeholder="Password">
+				</div>
+				<div >
+					<label for="exampleInputFile">File input</label>
+					<input type="file" id="exampleInputFile">
+					<p>Example block-level help text here.</p>
+				</div>
+				<div>
+					<label>
+					<input type="checkbox"> Check me out
+				</label>
+				</div>
+					<button type="submit">Submit</button>
+			</form>
+		</div>
+		
 			<div class="row">
  				<!-- classy table -->
  				<table class="table table-striped table-bordered table-hover">
@@ -86,7 +111,7 @@
 		</div>
 		
 	</div>
-</div>
+
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
