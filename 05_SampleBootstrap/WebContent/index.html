@@ -11,31 +11,22 @@
 	
 	<div class="container">
 
-		
-		<div class="col-md-offset-3 col-md-6">
-			<!-- one slightly less ugly form -->
-			<form class="form-inline">
-				<div class="form-group">
-					<label class="sr-only" for="exampleInputAmount1">Amount</label>
-					<input type="email" class="form-control" id="exampleInputAmount1" placeholder="Enter amount">
-				</div>
-				<div class="form-group">
-					<label class="sr-only" for="exampleInputPassword1">Password</label>
-					<input type="password" id="exampleInputPassword1" placeholder="Password" class="form-control">
-				</div>
-				<div class="form-group">
-					<label class="sr-only" for="exampleInputFile">File input</label>
-					<input type="file" id="exampleInputFile">
-					<p class="help-block">Example block-level help text here.</p>
-				</div>
-				<div class="checkbox">
-					<label>
-					<input type="checkbox"> Check me out
-				</label>
-				</div>
-					<button type="submit"  class="btn btn-default">Submit</button>
-			</form>
-		</div>
+	<div class="row">
+	<!-- offset: 4, size: 4, space after: 4 so it is centered -->
+	<div class="col-md-offset-4 col-md-4">
+		<!-- Styled form -->
+		<form class="form-inline">
+			<div class="form-group">
+			<label class="sr-only" for="exampleInputAmount1">Amount</label>
+			<div class="input-group has-error has-feedback">
+			<div class="input-group-addon">$</div>
+			<input type="email" class="form-control" id="exampleInputAmount1" placeholder="Enter amount">
+			<span class="glyphicon glyphicon-warning-sign form-control-feedback" ></span>
+			</div>
+			</div>
+			<button type="submit" class="btn btn-default">Transfer cash</button>
+		</form>
+	</div>
 		
 			<div class="row">
  				<!-- classy table -->
@@ -111,7 +102,7 @@
 		</div>
 		
 	</div>
-
+</div>
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 </body>
