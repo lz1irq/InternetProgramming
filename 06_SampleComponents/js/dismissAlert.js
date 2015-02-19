@@ -9,7 +9,7 @@ $(document).on("click",
 // with value 'alert'
 "[data-dismiss-sample='alert']", function(event) {
 $(event.target.closest(".alert")).fadeOut("slow", function() {
-alert("element removed");
+$(this).remove();
 });
 });
 });
