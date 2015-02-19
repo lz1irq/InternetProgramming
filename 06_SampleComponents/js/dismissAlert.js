@@ -8,6 +8,6 @@ $(document).on("click",
 // that have attribute data-dismiss-sample
 // with value 'alert'
 "[data-dismiss-sample='alert']", function(event) {
-$(event.target.closest(".alert")).remove();
+$(event.target.closest(".alert")).fadeOut("slow");
 });
 });
