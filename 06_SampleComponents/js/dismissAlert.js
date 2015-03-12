@@ -1,5 +1,5 @@
 $(document).ready(function() {
-"use strict"
+	"use strict"
 // events are propagated from selected element
 // up to the document (through all parents)
 // we catch the event on the first parent - document
@@ -8,8 +8,8 @@ $(document).on("click",
 // that have attribute data-dismiss-sample
 // with value 'alert'
 "[data-dismiss-sample='alert']", function(event) {
-$(event.target.closest(".alert")).fadeOut("slow", function() {
-$(this).remove();
-});
+	$(event.target.closest(".alert")).slideUp("slow", function() {
+		$(this).remove();
+	});
 });
 });
