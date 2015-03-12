@@ -25,7 +25,7 @@ public class PostsRest {
 
 	@GET
 	@Path("/")
-	@Produces(MediaType.APPLICATION_XML)
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public List<Post> getPosts() {
 		return postsService.getPosts();
 	}
