@@ -1,6 +1,8 @@
 package org.elsysbg.ip.jsonplaceholder.rest;
 
 import java.util.List;
+
+import org.elsysbg.ip.jsonplaceholder.Services;
 import org.elsysbg.ip.jsonplaceholder.model.Post;
 import org.elsysbg.ip.jsonplaceholder.model.User;
 import org.elsysbg.ip.jsonplaceholder.service.PostsService;
@@ -9,7 +11,7 @@ public class PostsRest {
 	private final PostsService postsService;
 	private final User defaultAuthor;
 	public PostsRest() {
-		postsService = new PostsService();
+		postsService = Services.getPostsService();
 		
 		// TODO should be authenticated via session
 		defaultAuthor = new User();
