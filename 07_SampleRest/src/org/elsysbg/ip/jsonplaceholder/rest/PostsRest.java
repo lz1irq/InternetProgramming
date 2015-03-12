@@ -1,12 +1,16 @@
 package org.elsysbg.ip.jsonplaceholder.rest;
 
 import java.util.List;
-
 import org.elsysbg.ip.jsonplaceholder.Services;
 import org.elsysbg.ip.jsonplaceholder.model.Post;
 import org.elsysbg.ip.jsonplaceholder.model.User;
 import org.elsysbg.ip.jsonplaceholder.service.PostsService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
+@Path("posts")
 public class PostsRest {
 	private final PostsService postsService;
 	private final User defaultAuthor;
@@ -19,6 +23,9 @@ public class PostsRest {
 		defaultAuthor.setPassword("hunter2");
 	}
 
+	@GET
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Post> getPosts() {
 		return postsService.getPosts();
 	}
