@@ -25,21 +25,25 @@ public class PostsRest {
 
 	@GET
 	@Path("/")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_XML)
 	public List<Post> getPosts() {
 		return postsService.getPosts();
 	}
+		
 	public Post getPost(long postId) {
 		return postsService.getPost(postId);
 	}
+	
 	public Post createPost(Post post) {
 		// TODO set author by user session
 		post.setUser(defaultAuthor);
 		return postsService.createPost(post);
 	}
+	
 	public Post updatePost(Post post) {
 		return postsService.updatePost(post);
 	}
+	
 	public void deletePost(long postId) {
 		postsService.deletePost(postId);
 	}
