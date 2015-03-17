@@ -52,7 +52,7 @@ public class PostsRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Post createPost(Post post) {
 		// TODO set author by user session
-		post.setUser(defaultAuthor);
+		post.setAuthor(defaultAuthor);
 		return postsService.createPost(post);
 	}
 	

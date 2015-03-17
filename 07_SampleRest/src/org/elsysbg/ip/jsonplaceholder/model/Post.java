@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Post {
 	
 	private long id;
-		private User user;
+		private User author;
 		private String title;
 		private String body;
 		
@@ -18,12 +18,12 @@ public class Post {
 			this.id = id;
 		}
 		
-		public User getUser() {
-			return user;
+		public User getAuthor() {
+			return author;
 		}
 		
-		public void setUser(User user) {
-			this.user = user;
+		public void setAuthor(User user) {
+			this.author = user;
 		}
 		
 		public String getTitle() {
