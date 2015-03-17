@@ -38,6 +38,7 @@ public class PostsService {
 		updated.setTitle(post.getTitle());
 		return post;
 	}
+	
 	public void deletePost(long postId) {
 		final Post toBeDeleted = getPost(postId);
 		posts.remove(toBeDeleted);
