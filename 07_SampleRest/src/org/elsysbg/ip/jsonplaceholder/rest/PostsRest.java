@@ -14,20 +14,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.elsysbg.ip.jsonplaceholder.Services;
 import org.elsysbg.ip.jsonplaceholder.model.Post;
-import org.elsysbg.ip.jsonplaceholder.model.User;
 import org.elsysbg.ip.jsonplaceholder.service.PostsService;
 
 @Path("posts")
 public class PostsRest {
 	private final PostsService postsService;
-	private final User defaultAuthor;
 	public PostsRest() {
 		postsService = Services.getPostsService();
 		
 		// TODO should be authenticated via session
-		defaultAuthor = new User();
-		defaultAuthor.setEmail("azure@diamond");
-		defaultAuthor.setPassword("hunter2");
 	}
 
 	@GET
@@ -52,7 +47,6 @@ public class PostsRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Post createPost(Post post) {
 		// TODO set author by user session
-		post.setAuthor(defaultAuthor);
 		return postsService.createPost(post);
 	}
 	

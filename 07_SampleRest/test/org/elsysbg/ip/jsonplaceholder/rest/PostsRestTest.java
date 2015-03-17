@@ -58,10 +58,6 @@ public class PostsRestTest {
 		 
 		// check if there is other calls 
 		Mockito.verifyNoMoreInteractions(postsService);
-
-		assertNotNull(result.getAuthor());
-		assertEquals("hello@world", result.getAuthor().getEmail());
-		assertEquals("secret", result.getAuthor().getPassword());
 	}
 	
 	// TODO add more tests
