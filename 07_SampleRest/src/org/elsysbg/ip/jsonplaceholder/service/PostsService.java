@@ -31,7 +31,9 @@ public class PostsService {
 		posts.add(post);
 		return post;
 	}
-	public Post updatePost(Post post) {
+	public Post updatePost(long postId, Post post) {
+		//don't allow the ID to be changed
+		post.setId(postId);
 		deletePost(post.getId());
 		posts.add(post);
 		return post;
