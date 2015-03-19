@@ -12,7 +12,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="javax.persistence.jdbc.user" value="test" />
 			<property name="javax.persistence.jdbc.password" value="" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby:07_SampleRest;create=true" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/07_SampleRest;create=true" />
 			<property name="hibernate.connection.autocommit" value="false"/>
 		</properties>
 	</persistence-unit>
