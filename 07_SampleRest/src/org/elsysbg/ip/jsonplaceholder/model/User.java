@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Model is copied by http://jsonplaceholder.typicode.com/
@@ -43,6 +44,9 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@XmlTransient
+	//sending out the password is a bad idea
 	public String getPassword() {
 		return password;
 	}
