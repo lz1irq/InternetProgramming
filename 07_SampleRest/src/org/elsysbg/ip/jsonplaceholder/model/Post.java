@@ -12,7 +12,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 // name specifies the name of the table that will hold this entity
 @Entity(name = "Posts")
-@NamedQueries({ @NamedQuery(name = "allPosts", query = "SELECT p from Posts p") })
+
+@NamedQueries({
+	@NamedQuery(name = "allPosts", 
+		query = "SELECT p from Posts p"),
+	@NamedQuery(name = "postsByAuthor", 
+		query = "SELECT p from Posts p where p.author=:author")
+})
+
 public class Post {
 
 	@Id

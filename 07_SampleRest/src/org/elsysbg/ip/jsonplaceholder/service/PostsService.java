@@ -8,44 +8,51 @@ import javax.persistence.EntityTransaction;
 
 import org.elsysbg.ip.jsonplaceholder.Services;
 import org.elsysbg.ip.jsonplaceholder.model.Post;
+import org.elsysbg.ip.jsonplaceholder.model.User;
 
 /**
  * TODO write tests for posts service
  */
 public class PostsService {
-	
+
 	private final EntityManagerFactory emf;
+
 	public PostsService() {
 		emf = Services.getEntityManagerFactory();
 	}
 
 	public List<Post> getPosts() {
-		final EntityManager em =
-			emf.createEntityManager();
+		final EntityManager em = emf.createEntityManager();
 		try {
-			return em
-				.createNamedQuery("allPosts", Post.class)
-				.getResultList();
+			return em.createNamedQuery("allPosts", Post.class).getResultList();
 		} finally {
 			em.close();
 		}
 	}
-	
+
 	public Post getPost(long postId) {
-		final EntityManager em =
-			emf.createEntityManager();
+		final EntityManager em = emf.createEntityManager();
 		try {
 			return em.find(Post.class, postId);
 		} finally {
 			em.close();
 		}
 	}
+
+	public List<Post> getPostsByAuthor(User author) {
+		final EntityManager em = emf.createEntityManager();
+		try {
+			return em.createNamedQuery("postsByAuthor", Post.class)
+					.setParameter("author", author).getResultList();
+		} finally {
+			em.close();
+		}
+	}
+
 	// synchronized because of lastPostId
 	public synchronized Post createPost(Post post) {
-		EntityManager em =
-			emf.createEntityManager();
-		final EntityTransaction tx =
-			em.getTransaction();
+		EntityManager em = emf.createEntityManager();
+		final EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
 			em.persist(post);
@@ -57,13 +64,12 @@ public class PostsService {
 			}
 			em.close();
 		}
-		
+
 	}
+
 	public Post updatePost(long postId, Post post) {
-		EntityManager em =
-			emf.createEntityManager();
-		final EntityTransaction tx =
-			em.getTransaction();
+		EntityManager em = emf.createEntityManager();
+		final EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
 			final Post fromDb = em.find(Post.class, postId);
@@ -72,7 +78,7 @@ public class PostsService {
 				// author should not be changed
 				// disadvantage is that we can miss some
 				// fields that can be updated
-				
+
 				fromDb.setBody(post.getBody());
 				fromDb.setTitle(post.getTitle());
 				em.merge(fromDb);
@@ -86,11 +92,10 @@ public class PostsService {
 			em.close();
 		}
 	}
+
 	public void deletePost(long postId) {
-		EntityManager em =
-			emf.createEntityManager();
-		final EntityTransaction tx =
-			em.getTransaction();
+		EntityManager em = emf.createEntityManager();
+		final EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
 			final Post fromDb = em.find(Post.class, postId);
