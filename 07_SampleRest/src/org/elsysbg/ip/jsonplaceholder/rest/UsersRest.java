@@ -26,7 +26,8 @@ public class UsersRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	// @PathParam binds url parameter (postId) to method parameter (postId)
 	public User getUser(@PathParam("userId") long userId) {
-		return usersService.getUser(userId);
+		final User user = usersService.getUser(userId);
+		return user;
 	}
 	@POST
 	@Path("/")

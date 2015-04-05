@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 // name specifies the name of the table that will hold this entity
@@ -36,6 +37,8 @@ public class Post {
 		this.id = id;
 	}
 	
+	@XmlTransient
+	//annotation is used to avoid bottomless recursion (user, posts, author(user)...)
 	public User getAuthor() {
 		return author;
 	}
