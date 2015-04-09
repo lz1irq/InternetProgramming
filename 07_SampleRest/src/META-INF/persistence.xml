@@ -11,8 +11,8 @@
 			in production the value should be validate,
 			for DB migrations - use external tools, e.g. liquibase -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="javax.persistence.jdbc.user" value="test" />
-			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.jdbc.user" value="app" />
+			<property name="javax.persistence.jdbc.password" value="123" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/07_SampleRest;create=true" />
 			<property name="hibernate.connection.autocommit" value="false"/>
 		</properties>

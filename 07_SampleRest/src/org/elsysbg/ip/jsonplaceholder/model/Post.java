@@ -1,13 +1,18 @@
 package org.elsysbg.ip.jsonplaceholder.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 // name specifies the name of the table that will hold this entity
@@ -34,6 +39,9 @@ public class Post {
 	
 	@Column(nullable=false, length=500)
 	private String body;
+	
+	@ManyToMany
+	private Set<User> likedByUsers = new HashSet<User>();
 
 	public long getId() {
 		return id;
@@ -65,6 +73,15 @@ public class Post {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+	
+	@XmlTransient
+	public Set<User> getLikedByUsers() {
+		return likedByUsers;
+	}
+	
+	public void setLikedByUsers(Set<User> likedByUsers) {
+		this.likedByUsers = likedByUsers;
 	}
 
 }

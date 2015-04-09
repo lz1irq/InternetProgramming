@@ -1,6 +1,7 @@
 package org.elsysbg.ip.jsonplaceholder.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -103,6 +104,30 @@ public class PostsService {
 				em.remove(fromDb);
 			}
 			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			em.close();
+		}
+	}
+
+	public Set<User> likePost(long postId, User likeByUser) {
+		EntityManager em = emf.createEntityManager();
+		final EntityTransaction tx = em.getTransaction();
+		try {
+
+			tx.begin();
+			final Post fromDb = em.find(Post.class, postId);
+
+			if (fromDb != null) {
+				fromDb.getLikedByUsers().add(likeByUser);
+				em.merge(fromDb);
+			}
+
+			tx.commit();
+			return fromDb.getLikedByUsers();
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
