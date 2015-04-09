@@ -50,7 +50,8 @@ public class PostsRest {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Post createPost(@Context SecurityContext security, Post post) {
-		final User author = usersService.getUserByEmail(security.getUserPrincipal().getName());
+		final User author = usersService.getUserByEmail(security
+				.getUserPrincipal().getName());
 		post.setAuthor(author);
 		return postsService.createPost(post);
 	}
@@ -59,7 +60,15 @@ public class PostsRest {
 	@Path("/{postId}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Post updatePost(@PathParam("postId") long postId, Post post) {
+	public Post updatePost(@Context SecurityContext security,
+			@PathParam("postId") long postId, Post post) {
+		final Post fromDb = postsService.getPost(postId);
+		if (!fromDb.getAuthor().getEmail()
+				.equals(security.getUserPrincipal().getName())) {
+			throw new SecurityException("Insufficient permission for post "
+					+ postId + " issued by "
+					+ security.getUserPrincipal().getName());
+		}
 		return postsService.updatePost(postId, post);
 	}
 
@@ -80,8 +89,10 @@ public class PostsRest {
 	@POST
 	@Path("/{postId}/likedbyusers")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Set<User> likePost(@Context SecurityContext security, @PathParam("postId") long postId) {
-		final User likedByUser = usersService.getUserByEmail(security.getUserPrincipal().getName());
+	public Set<User> likePost(@Context SecurityContext security,
+			@PathParam("postId") long postId) {
+		final User likedByUser = usersService.getUserByEmail(security
+				.getUserPrincipal().getName());
 		return postsService.likePost(postId, likedByUser);
 	}
 
