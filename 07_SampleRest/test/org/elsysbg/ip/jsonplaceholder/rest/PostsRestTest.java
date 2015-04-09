@@ -51,7 +51,7 @@ public class PostsRestTest {
 			}
 		});
 		final Post result =
-			postsRest.createPost(post);
+			postsRest.createPost(null, post);
 		
 		// check if postsService.createPost() is called
 		Mockito.verify(postsService).createPost(post);

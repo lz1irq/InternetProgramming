@@ -11,7 +11,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import org.elsysbg.ip.jsonplaceholder.Services;
 import org.elsysbg.ip.jsonplaceholder.model.Post;
@@ -23,8 +25,6 @@ import org.elsysbg.ip.jsonplaceholder.service.UsersService;
 public class PostsRest {
 	private final PostsService postsService;
 	private final UsersService usersService;
-	// TODO should be get from session
-	private final String defaultAuthorEmail = "hello@world";
 
 	public PostsRest() {
 		postsService = Services.getPostsService();
@@ -49,8 +49,8 @@ public class PostsRest {
 	@Path("/")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Post createPost(Post post) {
-		final User author = usersService.getUserByEmail(defaultAuthorEmail);
+	public Post createPost(@Context SecurityContext security, Post post) {
+		final User author = usersService.getUserByEmail(security.getUserPrincipal().getName());
 		post.setAuthor(author);
 		return postsService.createPost(post);
 	}
@@ -80,8 +80,8 @@ public class PostsRest {
 	@POST
 	@Path("/{postId}/likedbyusers")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Set<User> likePost(@PathParam("postId") long postId) {
-		final User likedByUser = usersService.getUserByEmail(defaultAuthorEmail);
+	public Set<User> likePost(@Context SecurityContext security, @PathParam("postId") long postId) {
+		final User likedByUser = usersService.getUserByEmail(security.getUserPrincipal().getName());
 		return postsService.likePost(postId, likedByUser);
 	}
 
