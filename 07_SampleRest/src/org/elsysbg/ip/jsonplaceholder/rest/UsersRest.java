@@ -49,8 +49,7 @@ public class UsersRest {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public User createUser(User user) {
-		// TODO set author by user session
-//		post.setAuthor(defaultAuthor);
+		user.setRole(Role.USER);
 		return usersService.createUser(user);
 	}
 	// TODO implement update, delete

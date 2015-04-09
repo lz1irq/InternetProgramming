@@ -20,7 +20,7 @@
 		userCredCol="password"
 		localDataSource="true"
 		userRoleTable="Users" 
-		roleNameCol="email" /> 
+		roleNameCol="role" /> 
 		<!-- we are using email as role for simplicity -->
 		
 </Context>

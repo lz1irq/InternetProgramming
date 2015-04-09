@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -29,6 +31,9 @@ public class User {
 
 	@Column(nullable = false, length = 50, unique = true)
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role = Role.USER;
 
 	// TODO password should be stored in DB as hash+salt
 	// TODO read about storing passwords, hashing, salting, etc.
@@ -71,6 +76,14 @@ public class User {
 	
 	public void setLikedPosts(Set<Post> likedPosts) {
 		this.likedPosts = likedPosts;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
